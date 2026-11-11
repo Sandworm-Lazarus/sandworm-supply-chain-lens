@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "mode": "live-engines-synthetic-project",
+  "generated_at": "2026-11-11T12:04:49.573604+00:00",
+  "engines": {
+    "syft": "1.57.1",
+    "grype": "0.121.3",
+    "network": "updates disabled; directory source only"
+  },
+  "binary_sha256": {
+    "syft": "de3982edbbc250c4a40764c7b1f30bbf54b681f9b99391ee6b85bfdfa5d4dffe",
+    "grype": "30f8f7de5dda71952a20d4955034d30a081a5d10e6bd00d67ce78b56fd0251dc"
+  },
+  "database": {
+    "built": "2026-11-11T06:21:32Z",
+    "schema_version": "v6.1.10",
+    "status": "reported-by-grype"
+  },
+  "input_sha256": "8e842dae6d9e49c9d9e76af986ae26f4ed42f8c42e114a5a3186562c1660e5c4",
+  "summary": {
+    "packages": 2,
+    "findings": 0,
+    "vulnerability_scan": "completed-report"
+  },
+  "assertions": [
+    "real pinned Syft engine executed",
+    "invented fixture package catalogued",
+    "Grype offline scan completed",
+    "no registry source or project upload enabled"
+  ]
+}

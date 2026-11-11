@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "project": "sandworm-supply-chain-lens",
+  "mode": "fixture",
+  "generated_at": "2026-11-11T11:59:08.066622+00:00",
+  "inputs_sha256": {
+    "sbom": "533f72a31998b40eca25942858cab4e18d27134a1b999b99eeb2bbc168277292",
+    "grype": "44b34b00e537dce81c8e42feaecf08d1cbc53a5bf3e3128fa86ab3789c3615cd"
+  },
+  "sbom_format": "cyclonedx",
+  "packages": [
+    {
+      "id": "d653a4ce3bb46886fda29039872dc47926dfffa1f1d94560d0417f6129ae2819",
+      "name": "example-widget",
+      "version": "1.0.0",
+      "type": "library",
+      "purl": "pkg:npm/example-widget@1.0.0"
+    }
+  ],
+  "summary": {
+    "packages": 1,
+    "findings": 1,
+    "vulnerability_scan": "completed-report"
+  },
+  "findings": [
+    {
+      "id": "9d18722d6567af39f891a39d4678a84c1894fee6a8cf9a4c8fc34be79bfe61b7",
+      "package_id": "d653a4ce3bb46886fda29039872dc47926dfffa1f1d94560d0417f6129ae2819",
+      "package": "example-widget",
+      "version": "1.0.0",
+      "advisory_id": "SANDWORM-DEMO-001",
+      "severity": "High",
+      "fixed_versions": [
+        "1.0.1"
+      ],
+      "fix_status": "fixed"
+    }
+  ],
+  "database": {
+    "built": "2026-11-01T00:00:00Z",
+    "schema_version": 6,
+    "status": "reported-by-grype"
+  },
+  "methodology": {
+    "identity": "purl without version; qualifier order/percent-decoding normalized, base/subpath exact; otherwise type+name",
+    "ambiguity": "conflicting package identities rejected, not guessed",
+    "zero_findings": "No reported matches, not a security certification."
+  },
+  "fixture_notice": "Synthetic packages/advisories. Not a real vulnerability assessment.",
+  "sample_notice": "Synthetic bundled example; engine smoke evidence is recorded separately in reports/."
+}
