@@ -1,51 +1,76 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "project": "sandworm-supply-chain-lens",
   "mode": "fixture",
-  "generated_at": "2026-11-11T11:59:08.066622+00:00",
+  "generated_at": "2026-11-13T00:00:00Z",
   "inputs_sha256": {
-    "sbom": "533f72a31998b40eca25942858cab4e18d27134a1b999b99eeb2bbc168277292",
-    "grype": "44b34b00e537dce81c8e42feaecf08d1cbc53a5bf3e3128fa86ab3789c3615cd"
+    "sbom": "9b459a56e8bb0914d42d2308490fead43483f0a6a3f9a2ff81a908fd8cd02eda",
+    "grype": "23ff8aabe9d6b7d802aa11fb71c89f4ce51efa3b0f6ebd8b54a773af96c22a84"
   },
   "sbom_format": "cyclonedx",
   "packages": [
     {
-      "id": "d653a4ce3bb46886fda29039872dc47926dfffa1f1d94560d0417f6129ae2819",
-      "name": "example-widget",
+      "id": "2225840b1c18fcb2b3c8b0fc7ecaf4754208d46d1dbcbd68756059338e07535e",
+      "family_id": "60a1c90c1c93ddca938a3d07327339a921afe3b650a1ae8591c613a5a6361906",
+      "name": "synthetic-widget",
       "version": "1.0.0",
       "type": "library",
-      "purl": "pkg:npm/example-widget@1.0.0"
+      "purl": "pkg:npm/synthetic-widget@1.0.0",
+      "source": {
+        "format": "cyclonedx",
+        "ref_sha256": "7d3af357c2da769329830c3ff477e1c7632e446fb409f17258a1127b26bdc927"
+      }
+    },
+    {
+      "id": "b8960d8c2ee5730a9b9639857b81b6530d2afdda16c6a9318daa17d13ab5610c",
+      "family_id": "60a1c90c1c93ddca938a3d07327339a921afe3b650a1ae8591c613a5a6361906",
+      "name": "synthetic-widget",
+      "version": "1.0.0",
+      "type": "library",
+      "purl": "pkg:npm/synthetic-widget@1.0.0",
+      "source": {
+        "format": "cyclonedx",
+        "ref_sha256": "7f54368b3fd6e4599c4d6694176521baa7c7c5e34fd8cef1efdd647b43ce563b"
+      }
+    },
+    {
+      "id": "ef3b2f3842bb20daeb00743d79edb9a0c2804559604a20ed41d8a68c9e2ed4ee",
+      "family_id": "60a1c90c1c93ddca938a3d07327339a921afe3b650a1ae8591c613a5a6361906",
+      "name": "synthetic-widget",
+      "version": "2.0.0",
+      "type": "library",
+      "purl": "pkg:npm/synthetic-widget@2.0.0",
+      "source": {
+        "format": "cyclonedx",
+        "ref_sha256": "0f884a96b4645caaa7e31f5c48a85f22f4fbf3a92163613285253c4e1c0006cd"
+      }
     }
   ],
   "summary": {
-    "packages": 1,
+    "packages": 3,
     "findings": 1,
     "vulnerability_scan": "completed-report"
   },
   "findings": [
     {
-      "id": "9d18722d6567af39f891a39d4678a84c1894fee6a8cf9a4c8fc34be79bfe61b7",
-      "package_id": "d653a4ce3bb46886fda29039872dc47926dfffa1f1d94560d0417f6129ae2819",
-      "package": "example-widget",
-      "version": "1.0.0",
-      "advisory_id": "SANDWORM-DEMO-001",
+      "id": "14da2f0dafee5545846a62b330956b7ebeea0a9e2587cd86f7013a938fca6a86",
+      "package_id": "ef3b2f3842bb20daeb00743d79edb9a0c2804559604a20ed41d8a68c9e2ed4ee",
+      "package": "synthetic-widget",
+      "version": "2.0.0",
+      "advisory_id": "SANDWORM-SYNTHETIC-002",
       "severity": "High",
-      "fixed_versions": [
-        "1.0.1"
-      ],
-      "fix_status": "fixed"
+      "fixed_versions": [],
+      "fix_status": "not-fixed"
     }
   ],
   "database": {
-    "built": "2026-11-01T00:00:00Z",
-    "schema_version": 6,
-    "status": "reported-by-grype"
+    "built": null,
+    "schema_version": null,
+    "status": "not-provided"
   },
   "methodology": {
-    "identity": "purl without version; qualifier order/percent-decoding normalized, base/subpath exact; otherwise type+name",
-    "ambiguity": "conflicting package identities rejected, not guessed",
-    "zero_findings": "No reported matches, not a security certification."
+    "identity": "versioned upstream package records; source references hashed",
+    "comparison": "exact added/removed occurrences; no upgrade pairing"
   },
-  "fixture_notice": "Synthetic packages/advisories. Not a real vulnerability assessment.",
-  "sample_notice": "Synthetic bundled example; engine smoke evidence is recorded separately in reports/."
+  "fixture_notice": "SYNTHETIC_ONLY: authored viewer/identity fixture, not evidence of a Python or upstream scan run."
 }

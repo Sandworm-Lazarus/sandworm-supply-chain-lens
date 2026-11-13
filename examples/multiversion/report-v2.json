@@ -1,0 +1,76 @@
+{
+  "schema_version": 2,
+  "project": "sandworm-supply-chain-lens",
+  "mode": "fixture",
+  "generated_at": "2026-11-13T00:00:00Z",
+  "inputs_sha256": {
+    "sbom": "9b459a56e8bb0914d42d2308490fead43483f0a6a3f9a2ff81a908fd8cd02eda",
+    "grype": "23ff8aabe9d6b7d802aa11fb71c89f4ce51efa3b0f6ebd8b54a773af96c22a84"
+  },
+  "sbom_format": "cyclonedx",
+  "packages": [
+    {
+      "id": "2225840b1c18fcb2b3c8b0fc7ecaf4754208d46d1dbcbd68756059338e07535e",
+      "family_id": "60a1c90c1c93ddca938a3d07327339a921afe3b650a1ae8591c613a5a6361906",
+      "name": "synthetic-widget",
+      "version": "1.0.0",
+      "type": "library",
+      "purl": "pkg:npm/synthetic-widget@1.0.0",
+      "source": {
+        "format": "cyclonedx",
+        "ref_sha256": "7d3af357c2da769329830c3ff477e1c7632e446fb409f17258a1127b26bdc927"
+      }
+    },
+    {
+      "id": "b8960d8c2ee5730a9b9639857b81b6530d2afdda16c6a9318daa17d13ab5610c",
+      "family_id": "60a1c90c1c93ddca938a3d07327339a921afe3b650a1ae8591c613a5a6361906",
+      "name": "synthetic-widget",
+      "version": "1.0.0",
+      "type": "library",
+      "purl": "pkg:npm/synthetic-widget@1.0.0",
+      "source": {
+        "format": "cyclonedx",
+        "ref_sha256": "7f54368b3fd6e4599c4d6694176521baa7c7c5e34fd8cef1efdd647b43ce563b"
+      }
+    },
+    {
+      "id": "ef3b2f3842bb20daeb00743d79edb9a0c2804559604a20ed41d8a68c9e2ed4ee",
+      "family_id": "60a1c90c1c93ddca938a3d07327339a921afe3b650a1ae8591c613a5a6361906",
+      "name": "synthetic-widget",
+      "version": "2.0.0",
+      "type": "library",
+      "purl": "pkg:npm/synthetic-widget@2.0.0",
+      "source": {
+        "format": "cyclonedx",
+        "ref_sha256": "0f884a96b4645caaa7e31f5c48a85f22f4fbf3a92163613285253c4e1c0006cd"
+      }
+    }
+  ],
+  "summary": {
+    "packages": 3,
+    "findings": 1,
+    "vulnerability_scan": "completed-report"
+  },
+  "findings": [
+    {
+      "id": "14da2f0dafee5545846a62b330956b7ebeea0a9e2587cd86f7013a938fca6a86",
+      "package_id": "ef3b2f3842bb20daeb00743d79edb9a0c2804559604a20ed41d8a68c9e2ed4ee",
+      "package": "synthetic-widget",
+      "version": "2.0.0",
+      "advisory_id": "SANDWORM-SYNTHETIC-002",
+      "severity": "High",
+      "fixed_versions": [],
+      "fix_status": "not-fixed"
+    }
+  ],
+  "database": {
+    "built": null,
+    "schema_version": null,
+    "status": "not-provided"
+  },
+  "methodology": {
+    "identity": "versioned upstream package records; source references hashed",
+    "comparison": "exact added/removed occurrences; no upgrade pairing"
+  },
+  "fixture_notice": "SYNTHETIC_ONLY: authored viewer/identity fixture, not evidence of a Python or upstream scan run."
+}

@@ -1,0 +1,21 @@
+{
+  "matches": [
+    {
+      "artifact": {
+        "name": "synthetic-widget",
+        "version": "2.0.0",
+        "type": "npm",
+        "purl": "pkg:npm/synthetic-widget@2.0.0"
+      },
+      "vulnerability": {
+        "id": "SANDWORM-SYNTHETIC-002",
+        "severity": "High",
+        "fix": {
+          "state": "not-fixed",
+          "versions": []
+        }
+      }
+    }
+  ],
+  "fixture_notice": "SYNTHETIC_ONLY: no real package or advisory assessment."
+}

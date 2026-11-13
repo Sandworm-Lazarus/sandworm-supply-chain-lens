@@ -36,9 +36,19 @@ Omit `--db-cache` to run only Syft: the report explicitly says `vulnerability_sc
 
 ## Identity, ambiguity and diffs
 
-Package identity uses a package URL with the version removed, qualifier keys sorted and their UTF-8 percent-encoded values decoded (literal `+` remains `+`). Duplicate/invalid qualifier keys are rejected. The base and subpath otherwise remain exact strings; this is not a full PURL canonicalization library. Qualifiers/subpath remain part of identity; packages without purl fall back to type+name. Identical duplicates collapse. Conflicting identities, including multiple versions of the same identity, are rejected so a version change is not guessed. This conservative v0.1 limitation means some legitimate multi-version SBOMs need preprocessing or a future location-aware identity policy.
+Schema **2** separates the versionless package family from each versioned upstream package occurrence. Family identity retains the previous PURL normalization: remove only the version, sort/decode qualifier values, and keep the base/subpath exact; without PURL use type+name. An explicit package version must agree with a version-bearing PURL; an omitted version can be read from that PURL.
 
-Grype findings must correspond to the same package identity/version in the supplied SBOM. Conflicting duplicate vulnerability records fail. Package diffs show added, removed and version-changed entries. Vulnerability diffs show new/resolved only when *both* reports contain completed Grype results; otherwise their status is incomplete and no resolution is inferred. Database version/build date are reported when present in upstream JSON, never invented.
+Occurrence identity hashes the family, exact version, source format and hashed native reference: Syft artifact `id`, CycloneDX `bom-ref`, or SPDX `SPDXID`. Distinct references preserve repeated copies of the same version. Native references identify upstream package records, which may aggregate several physical locations; this is not an inventory of each installed file. Source references are exported only as SHA-256 digests, never original paths or reference strings.
+
+A missing native reference uses an explicit version-level record (`source.ref_sha256: null`). Only identical records collapse at that level; the number of installed copies is unknown. Reference-free records carrying location evidence (Syft locations, CDX occurrences/properties, SPDX packageFileName/hasFiles) are rejected rather than silently discard their occurrence information. Reused native references with conflicting normalized metadata are rejected, including across versions.
+
+Grype mapping first requires the same family and exact version. A native Syft artifact ID, when supplied for referenced Syft candidates, must match the same source-reference hash. CycloneDX bom-ref and SPDXID are **not** assumed to equal Grype's generated artifact ID. Without a usable native Syft ID, exactly one family/version candidate is required. Repeated-version ambiguity fails; findings are never copied to every candidate. Conflicting duplicate findings fail.
+
+Package diffs contain exact occurrences added and removed. They do not invent version-upgrade pairs, match locations across different source formats, or pair changed native references. Vulnerability new/resolved evidence is compared only when both reports have completed Grype results; incomplete comparisons leave both lists empty. A removed finding is not proof of remediation.
+
+### Migrate schema 1
+
+The viewer continues to display schema-1 reports. Engine comparison requires schema 2 for both inputs: run `import-report` again using the original SBOM and optional Grype files, then compare the regenerated reports. Legacy reports lost occurrence references, so automatic migration would fabricate identity. The historical `examples/report.json` remains a schema-1 compatibility fixture; `examples/multiversion/` contains synthetic schema-2 cases. Source-format changes conservatively appear as removed/added occurrences.
 
 รายงานอาจมีชื่อแพ็กเกจและรุ่นภายในองค์กร จึงควรตรวจทานก่อนแชร์ SHA-256 ยืนยันว่าใช้ข้อมูลชุดเดิม ไม่ใช่ใบรับรองความปลอดภัย และรายการที่หายอาจเกิดจากฐานข้อมูลหรือขอบเขตการสแกนเปลี่ยน
 
@@ -57,3 +67,7 @@ The original Sandworm navy/coral theme is included in `web/`. Read [the viewer g
 The cloud development and upstream smoke checks are reproducible from this repository. A continuously running service needs your own worker/server, authentication, job limits and operational setup. Public source contains synthetic fixtures; local dependencies, secrets, scan targets, model caches and databases are excluded.
 
 Original Sandworm code is MIT-licensed. Upstream engines retain their respective licenses and credit; embedded fonts use OFL with notices in `web/fonts/`.
+
+## Multi-version development validation — 2026-11-13
+
+Synthetic fixtures cover Syft/CycloneDX/SPDX with three native references and two versions, repeated-version Grype mapping/refusal, reference conflicts, PURL version consistency, legacy migration, incomplete scans and schema-2 viewer cards. `python scripts/validate.py` and `node --test tests/web.test.cjs` are configured for branch pushes and pull requests. Hosted checks for this change are pending execution; committed historical validation/smoke files describe earlier source. The authored viewer fixture is not evidence of a new real-engine scan.

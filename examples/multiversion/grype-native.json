@@ -1,0 +1,48 @@
+{
+  "matches": [
+    {
+      "artifact": {
+        "id": "SYNTHETIC-install-a",
+        "name": "synthetic-widget",
+        "version": "1.0.0",
+        "type": "npm",
+        "purl": "pkg:npm/synthetic-widget@1.0.0"
+      },
+      "vulnerability": {
+        "id": "SANDWORM-SYNTHETIC-001",
+        "severity": "High",
+        "fix": {
+          "state": "not-fixed",
+          "versions": []
+        }
+      }
+    },
+    {
+      "artifact": {
+        "id": "SYNTHETIC-install-c",
+        "name": "synthetic-widget",
+        "version": "1.0.0",
+        "type": "npm",
+        "purl": "pkg:npm/synthetic-widget@1.0.0"
+      },
+      "vulnerability": {
+        "id": "SANDWORM-SYNTHETIC-001",
+        "severity": "High",
+        "fix": {
+          "state": "not-fixed",
+          "versions": []
+        }
+      }
+    }
+  ],
+  "descriptor": {
+    "db": {
+      "status": {
+        "valid": true,
+        "built": "2026-11-13T00:00:00Z",
+        "schemaVersion": "synthetic"
+      }
+    }
+  },
+  "fixture_notice": "SYNTHETIC_ONLY: no real package or advisory assessment."
+}

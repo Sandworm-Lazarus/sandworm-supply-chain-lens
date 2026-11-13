@@ -22,9 +22,9 @@ class LensTests(unittest.TestCase):
  def test_grype_other_sbom_rejected(self):
   d=grype();d['matches'][0]['artifact']['name']='other';d['matches'][0]['artifact']['purl']='pkg:npm/other@1.0.0'
   with self.assertRaises(RadarError):report(sbom(),'a',d,'b')
- def test_multiversion_ambiguity(self):
+ def test_multiple_versions_are_distinct(self):
   d=sbom();r=copy.deepcopy(d['components'][0]);r['version']='2.0.0';r['purl']='pkg:npm/example-widget@2.0.0';d['components'].append(r)
-  with self.assertRaises(RadarError):packages_from_sbom(d)
+  rows=packages_from_sbom(d)[1];self.assertEqual(len(rows),2);self.assertEqual(len({p['id'] for p in rows}),2);self.assertEqual(len({p['family_id'] for p in rows}),1)
  def test_identical_duplicate_collapsed(self):
   d=sbom();d['components']*=2;self.assertEqual(len(packages_from_sbom(d)[1]),1)
  def test_spdx_conflicting_purls(self):
@@ -36,15 +36,15 @@ class LensTests(unittest.TestCase):
  def test_unsupported_format(self):
   with self.assertRaises(RadarError):packages_from_sbom({})
  def test_missing_grype_schema(self):
-  with self.assertRaises(RadarError):vulnerabilities_from_grype({})
+  with self.assertRaises(RadarError):vulnerabilities_from_grype({},packages_from_sbom(sbom())[1])
  def test_conflicting_vuln_duplicate(self):
   d=grype();r=copy.deepcopy(d['matches'][0]);r['vulnerability']['severity']='Critical';d['matches'].append(r)
-  with self.assertRaises(RadarError):vulnerabilities_from_grype(d)
+  with self.assertRaises(RadarError):vulnerabilities_from_grype(d,packages_from_sbom(sbom())[1])
  def test_identical_vuln_duplicate(self):
-  d=grype();d['matches']*=2;self.assertEqual(len(vulnerabilities_from_grype(d)[0]),1)
+  d=grype();d['matches']*=2;self.assertEqual(len(vulnerabilities_from_grype(d,packages_from_sbom(sbom())[1])[0]),1)
  def test_version_change_diff(self):
   before=report(sbom(),'a',grype(),'b');s=sbom();s['components'][0]['version']='1.0.1';s['components'][0]['purl']='pkg:npm/example-widget@1.0.1';after=report(s,'c',{'matches':[]},'d')
-  d=compare(before,after);self.assertEqual(len(d['packages']['version_changed']),1);self.assertEqual(len(d['vulnerabilities']['resolved']),1)
+  d=compare(before,after);self.assertEqual(len(d['packages']['added']),1);self.assertEqual(len(d['packages']['removed']),1);self.assertNotIn('version_changed',d['packages']);self.assertEqual(len(d['vulnerabilities']['resolved']),1)
  def test_added_removed(self):
   before=report(sbom(),'a');s=sbom();s['components'][0]['name']='another';s['components'][0]['purl']='pkg:npm/another@1.0.0';after=report(s,'b')
   d=compare(before,after);self.assertEqual(len(d['packages']['added']),1);self.assertEqual(len(d['packages']['removed']),1)
@@ -110,10 +110,10 @@ class LensTests(unittest.TestCase):
    self.assertEqual(c,2);self.assertEqual(p.read_text(),'source-keep')
  def test_current_grype_nested_db_status(self):
   d=grype();d['descriptor']['db']={'status':{'built':'2026-11-11T00:00:00Z','schemaVersion':'v6.1.10','valid':True}}
-  self.assertEqual(vulnerabilities_from_grype(d)[1]['schema_version'],'v6.1.10')
+  self.assertEqual(vulnerabilities_from_grype(d,packages_from_sbom(sbom())[1])[1]['schema_version'],'v6.1.10')
  def test_invalid_grype_database(self):
   d=grype();d['descriptor']['db']={'status':{'valid':False}}
-  with self.assertRaises(RadarError):vulnerabilities_from_grype(d)
+  with self.assertRaises(RadarError):vulnerabilities_from_grype(d,packages_from_sbom(sbom())[1])
  def test_live_adapter_no_registry_or_credential_env(self):
   calls=[];raw=json.dumps({'artifacts':[{'name':'example-widget','version':'1.0.0','type':'npm','purl':'pkg:npm/example-widget@1.0.0'}]}).encode()
   def fake(args,**kw):calls.append((args,kw));return (b'Version: 1.57.1\n',0) if args[1]=='version' else (raw,0)

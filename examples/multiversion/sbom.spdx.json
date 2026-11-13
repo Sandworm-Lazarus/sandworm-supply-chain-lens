@@ -1,0 +1,39 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-SYNTHETIC-install-a",
+      "name": "synthetic-widget",
+      "versionInfo": "1.0.0",
+      "externalRefs": [
+        {
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/synthetic-widget@1.0.0"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-SYNTHETIC-install-b",
+      "name": "synthetic-widget",
+      "versionInfo": "2.0.0",
+      "externalRefs": [
+        {
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/synthetic-widget@2.0.0"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-SYNTHETIC-install-c",
+      "name": "synthetic-widget",
+      "versionInfo": "1.0.0",
+      "externalRefs": [
+        {
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/synthetic-widget@1.0.0"
+        }
+      ]
+    }
+  ],
+  "fixture_notice": "SYNTHETIC_ONLY: no real package or advisory assessment."
+}

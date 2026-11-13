@@ -1,0 +1,26 @@
+{
+  "artifacts": [
+    {
+      "id": "SYNTHETIC-install-a",
+      "name": "synthetic-widget",
+      "version": "1.0.0",
+      "type": "npm",
+      "purl": "pkg:npm/synthetic-widget@1.0.0"
+    },
+    {
+      "id": "SYNTHETIC-install-b",
+      "name": "synthetic-widget",
+      "version": "2.0.0",
+      "type": "npm",
+      "purl": "pkg:npm/synthetic-widget@2.0.0"
+    },
+    {
+      "id": "SYNTHETIC-install-c",
+      "name": "synthetic-widget",
+      "version": "1.0.0",
+      "type": "npm",
+      "purl": "pkg:npm/synthetic-widget@1.0.0"
+    }
+  ],
+  "fixture_notice": "SYNTHETIC_ONLY: no real package or advisory assessment."
+}

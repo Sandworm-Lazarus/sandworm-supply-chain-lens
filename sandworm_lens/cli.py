@@ -1,7 +1,7 @@
 from __future__ import annotations
 import argparse, json, os, re, sys, tempfile
 from pathlib import Path
-from .engine import report, compare
+from .engine import report, compare, SCHEMA_VERSION
 from .safety import RadarError, read_json, parse_json, local_target, run_bounded, sha256, write_report
 PINS={'syft':'1.57.1','grype':'0.121.3'}
 
@@ -44,7 +44,7 @@ def main(argv=None):
     try:
         if args.command=='diff':
             old,oh=read_json(args.before);new,nh=read_json(args.after);delta=compare(old,new)
-            result={'schema_version':1,'project':'sandworm-supply-chain-lens','mode':'import','summary':{k:len(v) for k,v in delta['packages'].items()},'findings':[],'comparison':delta,'inputs_sha256':{'before':oh,'after':nh}};inputs=[args.before,args.after]
+            result={'schema_version':SCHEMA_VERSION,'project':'sandworm-supply-chain-lens','mode':'import','summary':{k:len(v) for k,v in delta['packages'].items()},'findings':[],'comparison':delta,'inputs_sha256':{'before':oh,'after':nh}};inputs=[args.before,args.after]
         else:
             if args.command=='scan':result=scan(args.target,args.syft,args.grype,args.db_cache,args.timeout);inputs=[]
             else:
@@ -56,5 +56,5 @@ def main(argv=None):
         write_report(args.out,result,inputs)
         print(json.dumps({'status':'written','summary':result['summary']},ensure_ascii=False));return 0
     except (RadarError,OSError,TypeError,KeyError):
-        print('Sandworm: operation failed; check SBOM/report schema, ambiguity, limits, pinned engines, and offline database.',file=sys.stderr);return 2
+        print('Sandworm: operation failed; check schema-2 inputs (re-import legacy SBOM/Grype), occurrence ambiguity, limits, pinned engines, and offline database.',file=sys.stderr);return 2
 if __name__=='__main__':raise SystemExit(main())
